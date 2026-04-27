@@ -1,18 +1,18 @@
 CREATE TABLE WEAPON_TYPE (
-    weapon_id INT PRIMARY KEY,
+    weapon_id SERIAL PRIMARY KEY,
     weapon_name VARCHAR(50) NOT NULL,
     category VARCHAR(50)
 );
 
 CREATE TABLE PLAYER (
-    player_id INT PRIMARY KEY,
+    player_id SERIAL PRIMARY KEY,
     nickname VARCHAR(50) NOT NULL,
     level INT DEFAULT 1,
     vp_balance DECIMAL(15, 2) DEFAULT 0
 );
 
 CREATE TABLE SKIN (
-    skin_id INT PRIMARY KEY,
+    skin_id SERIAL PRIMARY KEY,
     skin_name VARCHAR(100) NOT NULL,
     weapon_id INT NOT NULL,
     rarity VARCHAR(30),
@@ -21,7 +21,7 @@ CREATE TABLE SKIN (
 );
 
 CREATE TABLE INVENTORY (
-    inventory_id INT PRIMARY KEY,
+    inventory_id SERIAL PRIMARY KEY,
     player_id INT NOT NULL,
     skin_id INT NOT NULL,
     is_equipped BOOLEAN DEFAULT FALSE,
@@ -30,10 +30,10 @@ CREATE TABLE INVENTORY (
 );
 
 CREATE TABLE PURCHASE (
-    purchase_id INT PRIMARY KEY,
+    purchase_id SERIAL PRIMARY KEY,
     player_id INT NOT NULL,
     skin_id INT NOT NULL,
-    transaction_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    transaction_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (player_id) REFERENCES PLAYER(player_id),
     FOREIGN KEY (skin_id) REFERENCES SKIN(skin_id)
 );

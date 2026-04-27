@@ -38,6 +38,4 @@ build/
 ### Mac OS ###
 .DS_Store
 
-
-/src/other/
 /src/main/resources/application.properties
