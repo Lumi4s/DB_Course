@@ -1,6 +1,7 @@
 package org.Lumi.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import lombok.*;
 import java.math.BigDecimal;
 
@@ -16,13 +17,14 @@ public class Player {
     @Column(name = "player_id")
     private Integer id;
 
-    @Column(name = "nickname", nullable = false, length = 50)
+    @Column(name = "nickname", nullable = false, length = 50, unique = true)
     private String nickname;
 
     @Column(name = "level")
-    private Integer level = 1;
+    private Integer level;
 
+    @Min(value = 0, message = "VP balance cannot be negative")
     @Column(name = "vp_balance")
-    private BigDecimal vpBalance = BigDecimal.ZERO;
+    private BigDecimal vpBalance;
 }
 

@@ -23,13 +23,13 @@ public class ShopService {
     @Transactional
     public void purchaseSkin(Integer playerId, Integer skinId) {
         Player player = playerRepository.findById(playerId)
-                .orElseThrow(() -> new RuntimeException("Игрок не найден"));
+                .orElseThrow(() -> new RuntimeException("Player not found"));
         
         Skin skin = skinRepository.findById(skinId)
-                .orElseThrow(() -> new RuntimeException("Скин не найден"));
+                .orElseThrow(() -> new RuntimeException("Skin not found"));
 
         if (player.getVpBalance().compareTo(skin.getPriceVp()) < 0) {
-            throw new RuntimeException("Недостаточно VP для покупки данного скина!");
+            throw new RuntimeException("Not enough VP");
         }
 
         player.setVpBalance(player.getVpBalance().subtract(skin.getPriceVp()));

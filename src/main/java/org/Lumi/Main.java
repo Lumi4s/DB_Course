@@ -1,5 +1,6 @@
 package org.Lumi;
 
+import lombok.RequiredArgsConstructor;
 import org.Lumi.model.*;
 import org.Lumi.service.ShopService;
 import org.Lumi.repo.*;
@@ -10,7 +11,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.math.BigDecimal;
 import java.util.Scanner;
 
-@SpringBootApplication 
+@SpringBootApplication
+@RequiredArgsConstructor
 public class Main implements CommandLineRunner {
 
     private final ShopService shopService;
@@ -20,24 +22,17 @@ public class Main implements CommandLineRunner {
     private final PurchaseRepository purchaseRepository;
     private final Scanner scanner = new Scanner(System.in);
 
-    public Main(ShopService shopService, 
-                PlayerRepository playerRepository, 
-                SkinRepository skinRepository, 
-                WeaponTypeRepository weaponTypeRepository,
-                PurchaseRepository purchaseRepository) {
-        this.shopService = shopService;
-        this.playerRepository = playerRepository;
-        this.skinRepository = skinRepository;
-        this.weaponTypeRepository = weaponTypeRepository;
-        this.purchaseRepository = purchaseRepository;
-    }
-
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
+        System.out.println("Приложение запущено. База данных готова (ddl-auto=update).");
+        new Thread(this::mainMenu).start();
+    }
+
+    private void mainMenu() {
         System.out.println("=== Skin Management System CLI ===");
         boolean running = true;
 

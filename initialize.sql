@@ -6,9 +6,9 @@ CREATE TABLE WEAPON_TYPE (
 
 CREATE TABLE PLAYER (
     player_id SERIAL PRIMARY KEY,
-    nickname VARCHAR(50) NOT NULL,
+    nickname VARCHAR(50) NOT NULL UNIQUE,
     level INT DEFAULT 1,
-    vp_balance DECIMAL(15, 2) DEFAULT 0
+    vp_balance DECIMAL(15, 2) DEFAULT 0 CHECK (vp_balance >= 0)
 );
 
 CREATE TABLE SKIN (
