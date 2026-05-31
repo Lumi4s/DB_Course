@@ -4,6 +4,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.Lumi.model.Player;
 import org.Lumi.service.PlayerService;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,7 +32,11 @@ public class PlayerController {
 
     @PostMapping
     public ResponseEntity<Player> createPlayer(@Valid @RequestBody Player player) {
-        return ResponseEntity.ok(playerService.createPlayer(player));
+        try {
+            return ResponseEntity.ok(playerService.createPlayer(player));
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
     }
 
     @PutMapping("/{id}")

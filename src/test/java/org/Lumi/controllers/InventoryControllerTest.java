@@ -1,8 +1,14 @@
 package org.Lumi.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.Lumi.model.*;
-import org.Lumi.service.*;
+import org.Lumi.model.Inventory;
+import org.Lumi.model.Player;
+import org.Lumi.model.Skin;
+import org.Lumi.model.WeaponType;
+import org.Lumi.service.InventoryService;
+import org.Lumi.service.PlayerService;
+import org.Lumi.service.SkinService;
+import org.Lumi.service.WeaponTypeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +24,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -119,6 +126,31 @@ public class InventoryControllerTest {
                 .andExpect(status().isNoContent());
 
         mockMvc.perform(get("/api/inventory/{id}", inventory.getId()))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void getAllInventories_Success() throws Exception {
+        Inventory inventory = new Inventory();
+        inventory.setPlayer(testPlayer);
+        inventory.setSkin(testSkin);
+        inventoryService.createInventory(inventory);
+
+        mockMvc.perform(get("/api/inventory"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()").value(1));
+    }
+
+    @Test
+    void updateInventory_NotFound() throws Exception {
+        Map<String, Object> updateRequest = new HashMap<>();
+        updateRequest.put("player", Map.of("id", testPlayer.getId()));
+        updateRequest.put("skin", Map.of("id", testSkin.getId()));
+        updateRequest.put("isEquipped", true);
+
+        mockMvc.perform(put("/api/inventory/{id}", 999)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(updateRequest)))
                 .andExpect(status().isNotFound());
     }
 

@@ -1,8 +1,7 @@
 package org.Lumi.service;
 
 import org.Lumi.model.Inventory;
-import org.Lumi.model.Player; // Предполагаю, что модель Player существует
-import org.Lumi.model.Skin;   // Предполагаю, что модель Skin существует
+import org.Lumi.model.Player;
 import org.Lumi.repo.InventoryRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -59,6 +58,7 @@ class InventoryServiceTest {
         // Assert
         assertTrue(result.isEmpty(), "Result should be empty, if ID wasn't found");
     }
+
     @Test
     void updateInventory_ShouldUpdateFields_WhenDetailsProvided() {
         // Arrange
@@ -89,7 +89,7 @@ class InventoryServiceTest {
         existingInventory.setPlayer(player);
 
         Inventory updatedDetails = new Inventory();
-        updatedDetails.setIsEquipped(true); 
+        updatedDetails.setIsEquipped(true);
 
         when(inventoryRepository.findById(1)).thenReturn(Optional.of(existingInventory));
         when(inventoryRepository.save(any(Inventory.class))).thenAnswer(i -> i.getArguments()[0]);

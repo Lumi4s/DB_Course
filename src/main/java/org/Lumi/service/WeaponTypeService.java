@@ -3,6 +3,7 @@ package org.Lumi.service;
 import org.Lumi.model.WeaponType;
 import org.Lumi.repo.WeaponTypeRepository;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -30,16 +31,16 @@ public class WeaponTypeService {
     public WeaponType updateWeaponType(Integer id, WeaponType weaponTypeDetails) {
         WeaponType weaponType = weaponTypeRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("WeaponType not found"));
-        
+
         if (weaponTypeDetails.getWeaponName() != null) {
-        weaponType.setWeaponName(weaponTypeDetails.getWeaponName());
-    }
+            weaponType.setWeaponName(weaponTypeDetails.getWeaponName());
+        }
         if (weaponTypeDetails.getCategory() != null) {
             weaponType.setCategory(weaponTypeDetails.getCategory());
-    }
+        }
 
         return weaponTypeRepository.save(weaponType);
-}
+    }
 
     public void deleteWeaponType(Integer id) {
         weaponTypeRepository.deleteById(id);

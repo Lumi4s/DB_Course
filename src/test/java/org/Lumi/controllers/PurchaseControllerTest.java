@@ -20,10 +20,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -128,6 +128,32 @@ public class PurchaseControllerTest {
                 .andExpect(status().isNoContent());
 
         mockMvc.perform(get("/api/purchases/{id}", purchase.getId()))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void updatePurchase_Success() throws Exception {
+        Purchase purchase = new Purchase();
+        purchase.setPlayer(testPlayer);
+        purchase.setSkin(testSkin);
+        purchase = purchaseService.createPurchase(purchase);
+
+        mockMvc.perform(put("/api/purchases/{id}", purchase.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(purchase)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(purchase.getId()));
+    }
+
+    @Test
+    void updatePurchase_NotFound() throws Exception {
+        Purchase purchase = new Purchase();
+        purchase.setPlayer(testPlayer);
+        purchase.setSkin(testSkin);
+
+        mockMvc.perform(put("/api/purchases/{id}", 999)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(purchase)))
                 .andExpect(status().isNotFound());
     }
 }

@@ -3,6 +3,7 @@ package org.Lumi.service;
 import org.Lumi.model.Skin;
 import org.Lumi.repo.SkinRepository;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -30,7 +31,7 @@ public class SkinService {
     public Skin updateSkin(Integer id, Skin skinDetails) {
         Skin skin = skinRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Skin not found"));
-        
+
         if (skinDetails.getSkinName() != null) {
             skin.setSkinName(skinDetails.getSkinName());
         }

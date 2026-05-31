@@ -95,7 +95,7 @@ public class PurchaseServiceTest {
         // Arrange
         LocalDateTime oldDate = LocalDateTime.of(2023, 1, 1, 10, 0);
         LocalDateTime newDate = LocalDateTime.of(2024, 1, 1, 10, 0);
-        
+
         samplePurchase.setTransactionDate(oldDate);
 
         Player newPlayer = new Player();

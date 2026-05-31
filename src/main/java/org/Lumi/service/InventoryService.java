@@ -3,6 +3,7 @@ package org.Lumi.service;
 import org.Lumi.model.Inventory;
 import org.Lumi.repo.InventoryRepository;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -30,7 +31,7 @@ public class InventoryService {
     public Inventory updateInventory(Integer id, Inventory inventoryDetails) {
         Inventory inventory = inventoryRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Inventory not found"));
-        
+
         if (inventoryDetails.getPlayer() != null) {
             inventory.setPlayer(inventoryDetails.getPlayer());
         }
@@ -38,7 +39,7 @@ public class InventoryService {
             inventory.setSkin(inventoryDetails.getSkin());
         }
         inventory.setIsEquipped(inventoryDetails.getIsEquipped());
-        
+
         return inventoryRepository.save(inventory);
     }
 

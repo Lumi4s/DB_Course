@@ -3,6 +3,7 @@ package org.Lumi.service;
 import org.Lumi.model.Purchase;
 import org.Lumi.repo.PurchaseRepository;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -30,7 +31,7 @@ public class PurchaseService {
     public Purchase updatePurchase(Integer id, Purchase purchaseDetails) {
         Purchase purchase = purchaseRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Purchase not found"));
-        
+
         if (purchaseDetails.getPlayer() != null) {
             purchase.setPlayer(purchaseDetails.getPlayer());
         }
@@ -38,7 +39,7 @@ public class PurchaseService {
             purchase.setSkin(purchaseDetails.getSkin());
         }
         purchase.setTransactionDate(purchaseDetails.getTransactionDate());
-        
+
         return purchaseRepository.save(purchase);
     }
 

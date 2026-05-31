@@ -68,7 +68,7 @@ public class PlayerServiceTest {
     void createPlayer_ShouldReturnSavedPlayer() {
         // Arrange
         when(playerRepository.save(any(Player.class))).thenReturn(samplePlayer);
-    
+
         // Act
         Player result = playerService.createPlayer(samplePlayer);
         assertNotNull(result);

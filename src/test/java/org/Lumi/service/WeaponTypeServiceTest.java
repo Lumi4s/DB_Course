@@ -78,7 +78,7 @@ public class WeaponTypeServiceTest {
     @Test
     void updateWeaponType_ShouldUpdateAllFields_WhenDetailsProvided() {
         // Arrange
-        WeaponType updateDetails= new WeaponType();
+        WeaponType updateDetails = new WeaponType();
         updateDetails.setWeaponName("Vandal");
         updateDetails.setCategory("Rifles");
 

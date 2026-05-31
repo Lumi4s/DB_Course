@@ -1,9 +1,14 @@
 package org.Lumi;
 
 import lombok.RequiredArgsConstructor;
-import org.Lumi.model.*;
+import org.Lumi.model.Player;
+import org.Lumi.model.Skin;
+import org.Lumi.model.WeaponType;
+import org.Lumi.repo.PlayerRepository;
+import org.Lumi.repo.PurchaseRepository;
+import org.Lumi.repo.SkinRepository;
+import org.Lumi.repo.WeaponTypeRepository;
 import org.Lumi.service.ShopService;
-import org.Lumi.repo.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -94,7 +99,7 @@ public class Main implements CommandLineRunner {
 
         Player player = playerRepository.findById(playerId)
                 .orElseThrow(() -> new RuntimeException("Игрок не найден"));
-        
+
         player.setVpBalance(player.getVpBalance().add(amount));
         playerRepository.save(player);
         System.out.println("Баланс обновлен!");
@@ -161,9 +166,9 @@ public class Main implements CommandLineRunner {
         System.out.println("\n--- Магазин скинов ---");
         skinRepository.findAll().forEach(skin -> {
             System.out.printf("ID: %d | %s [%s] | Цена: %s VP | Тип: %s%n",
-                    skin.getId(), 
-                    skin.getSkinName(), 
-                    skin.getRarity(), 
+                    skin.getId(),
+                    skin.getSkinName(),
+                    skin.getRarity(),
                     skin.getPriceVp(),
                     skin.getWeaponType().getWeaponName());
         });

@@ -1,8 +1,14 @@
 package org.Lumi.service;
 
 import lombok.RequiredArgsConstructor;
-import org.Lumi.model.*;
-import org.Lumi.repo.*;
+import org.Lumi.model.Inventory;
+import org.Lumi.model.Player;
+import org.Lumi.model.Purchase;
+import org.Lumi.model.Skin;
+import org.Lumi.repo.InventoryRepository;
+import org.Lumi.repo.PlayerRepository;
+import org.Lumi.repo.PurchaseRepository;
+import org.Lumi.repo.SkinRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,13 +24,13 @@ public class ShopService {
     /**
      * @param playerId
      * @param skinId
-     * @throws RuntimeException 
+     * @throws RuntimeException
      */
     @Transactional
     public void purchaseSkin(Integer playerId, Integer skinId) {
         Player player = playerRepository.findById(playerId)
                 .orElseThrow(() -> new RuntimeException("Player not found"));
-        
+
         Skin skin = skinRepository.findById(skinId)
                 .orElseThrow(() -> new RuntimeException("Skin not found"));
 
@@ -33,7 +39,7 @@ public class ShopService {
         }
 
         player.setVpBalance(player.getVpBalance().subtract(skin.getPriceVp()));
- 
+
         Purchase purchase = new Purchase();
         purchase.setPlayer(player);
         purchase.setSkin(skin);
