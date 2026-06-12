@@ -40,7 +40,7 @@ public class PlayerController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Player> updatePlayer(@PathVariable Integer id, @RequestBody Player player) {
+    public ResponseEntity<Player> updatePlayer(@PathVariable Integer id, @Valid @RequestBody Player player) {
         try {
             return ResponseEntity.ok(playerService.updatePlayer(id, player));
         } catch (RuntimeException e) {

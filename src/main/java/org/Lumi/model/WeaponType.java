@@ -1,13 +1,11 @@
 package org.Lumi.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
 
 @Entity
-@Table(name = "WEAPON_TYPE")
+@Table(name = "weapon_type")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -18,10 +16,12 @@ public class WeaponType {
     @Column(name = "weapon_id")
     private Integer id;
 
+    @NotNull
     @Column(name = "weapon_name", nullable = false, length = 50)
     private String weaponName;
 
-    @Column(name = "category", length = 50)
+    @NotNull
+    @Column(name = "category", nullable = false, length = 50)
     private String category;
 }
 

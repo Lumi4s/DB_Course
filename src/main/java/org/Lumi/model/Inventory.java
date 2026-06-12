@@ -1,13 +1,11 @@
 package org.Lumi.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
 
 @Entity
-@Table(name = "INVENTORY")
+@Table(name = "inventory")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -19,14 +17,16 @@ public class Inventory {
     private Integer id;
 
     @ManyToOne
+    @NotNull
     @JoinColumn(name = "player_id", nullable = false)
     private Player player;
 
     @ManyToOne
+    @NotNull
     @JoinColumn(name = "skin_id", nullable = false)
     private Skin skin;
 
     @Column(name = "is_equipped")
-    private Boolean isEquipped = false;
+    private boolean isEquipped = false;
 }
 

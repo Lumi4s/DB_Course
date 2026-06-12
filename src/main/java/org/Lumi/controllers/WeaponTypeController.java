@@ -1,5 +1,6 @@
 package org.Lumi.controllers;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.Lumi.model.WeaponType;
 import org.Lumi.service.WeaponTypeService;
@@ -28,12 +29,12 @@ public class WeaponTypeController {
     }
 
     @PostMapping
-    public ResponseEntity<WeaponType> createWeaponType(@RequestBody WeaponType weaponType) {
+    public ResponseEntity<WeaponType> createWeaponType(@Valid @RequestBody WeaponType weaponType) {
         return ResponseEntity.ok(weaponTypeService.createWeaponType(weaponType));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<WeaponType> updateWeaponType(@PathVariable Integer id, @RequestBody WeaponType weaponType) {
+    public ResponseEntity<WeaponType> updateWeaponType(@PathVariable Integer id, @Valid @RequestBody WeaponType weaponType) {
         try {
             return ResponseEntity.ok(weaponTypeService.updateWeaponType(id, weaponType));
         } catch (RuntimeException e) {

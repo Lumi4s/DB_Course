@@ -1,5 +1,6 @@
 package org.Lumi.controllers;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.Lumi.model.Skin;
 import org.Lumi.service.SkinService;
@@ -28,12 +29,12 @@ public class SkinController {
     }
 
     @PostMapping
-    public ResponseEntity<Skin> createSkin(@RequestBody Skin skin) {
+    public ResponseEntity<Skin> createSkin(@Valid @RequestBody Skin skin) {
         return ResponseEntity.ok(skinService.createSkin(skin));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Skin> updateSkin(@PathVariable Integer id, @RequestBody Skin skin) {
+    public ResponseEntity<Skin> updateSkin(@PathVariable Integer id, @Valid @RequestBody Skin skin) {
         try {
             return ResponseEntity.ok(skinService.updateSkin(id, skin));
         } catch (RuntimeException e) {

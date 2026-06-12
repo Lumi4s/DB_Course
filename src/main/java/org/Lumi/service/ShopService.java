@@ -21,11 +21,6 @@ public class ShopService {
     private final PurchaseRepository purchaseRepository;
     private final InventoryRepository inventoryRepository;
 
-    /**
-     * @param playerId
-     * @param skinId
-     * @throws RuntimeException
-     */
     @Transactional
     public void purchaseSkin(Integer playerId, Integer skinId) {
         Player player = playerRepository.findById(playerId)
@@ -48,7 +43,7 @@ public class ShopService {
         Inventory inventory = new Inventory();
         inventory.setPlayer(player);
         inventory.setSkin(skin);
-        inventory.setIsEquipped(false);
+        inventory.setEquipped(false);
         inventoryRepository.save(inventory);
     }
 }

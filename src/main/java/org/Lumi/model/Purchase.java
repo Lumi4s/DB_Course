@@ -1,15 +1,13 @@
 package org.Lumi.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "PURCHASE")
+@Table(name = "purchase")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -20,15 +18,22 @@ public class Purchase {
     @Column(name = "purchase_id")
     private Integer id;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "player_id", nullable = false)
     private Player player;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "skin_id", nullable = false)
     private Skin skin;
 
     @Column(name = "transaction_date")
-    private LocalDateTime transactionDate = LocalDateTime.now();
+    private LocalDateTime transactionDate;
+
+    @PrePersist
+    private void prePersist() {
+        transactionDate = LocalDateTime.now();
+    }
 }
 

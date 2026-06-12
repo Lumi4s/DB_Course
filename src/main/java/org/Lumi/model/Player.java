@@ -2,15 +2,14 @@ package org.Lumi.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
+import lombok.*;
 
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "PLAYER")
+@Table(name = "player")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -21,13 +20,15 @@ public class Player {
     @Column(name = "player_id")
     private Integer id;
 
+    @NotNull
     @Column(name = "nickname", nullable = false, length = 50, unique = true)
     private String nickname;
 
+    @PositiveOrZero
     @Column(name = "level")
     private Integer level;
 
-    @Min(value = 0, message = "VP balance cannot be negative")
+    @PositiveOrZero
     @Column(name = "vp_balance")
     private BigDecimal vpBalance;
 }

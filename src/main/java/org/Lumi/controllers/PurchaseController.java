@@ -1,5 +1,6 @@
 package org.Lumi.controllers;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.Lumi.model.Purchase;
 import org.Lumi.service.PurchaseService;
@@ -28,12 +29,12 @@ public class PurchaseController {
     }
 
     @PostMapping
-    public ResponseEntity<Purchase> createPurchase(@RequestBody Purchase purchase) {
+    public ResponseEntity<Purchase> createPurchase(@Valid @RequestBody Purchase purchase) {
         return ResponseEntity.ok(purchaseService.createPurchase(purchase));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Purchase> updatePurchase(@PathVariable Integer id, @RequestBody Purchase purchase) {
+    public ResponseEntity<Purchase> updatePurchase(@PathVariable Integer id, @Valid @RequestBody Purchase purchase) {
         try {
             return ResponseEntity.ok(purchaseService.updatePurchase(id, purchase));
         } catch (RuntimeException e) {

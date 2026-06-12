@@ -1,5 +1,6 @@
 package org.Lumi.controllers;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.Lumi.model.Inventory;
 import org.Lumi.service.InventoryService;
@@ -28,13 +29,13 @@ public class InventoryController {
     }
 
     @PostMapping
-    public ResponseEntity<Inventory> createInventory(@RequestBody Inventory inventory) {
+    public ResponseEntity<Inventory> createInventory(@Valid @RequestBody Inventory inventory) {
         Inventory created = inventoryService.createInventory(inventory);
         return ResponseEntity.ok(created);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Inventory> updateInventory(@PathVariable int id, @RequestBody Inventory inventory) {
+    public ResponseEntity<Inventory> updateInventory(@PathVariable int id, @Valid @RequestBody Inventory inventory) {
         try {
             Inventory updated = inventoryService.updateInventory(id, inventory);
             return ResponseEntity.ok(updated);

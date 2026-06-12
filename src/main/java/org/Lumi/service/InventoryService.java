@@ -38,7 +38,7 @@ public class InventoryService {
         if (inventoryDetails.getSkin() != null) {
             inventory.setSkin(inventoryDetails.getSkin());
         }
-        inventory.setIsEquipped(inventoryDetails.getIsEquipped());
+        inventory.setEquipped(inventoryDetails.isEquipped());
 
         return inventoryRepository.save(inventory);
     }
